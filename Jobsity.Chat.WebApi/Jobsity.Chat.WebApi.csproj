@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Jobsity.Chat.Application\Jobsity.Chat.Application.csproj" />
   </ItemGroup>
 
 </Project>

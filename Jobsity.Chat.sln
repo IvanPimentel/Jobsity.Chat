@@ -17,17 +17,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 - IoC", "4.2 - IoC", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.3 - CrossCutting", "4.3 - CrossCutting", "{EEAF3581-1605-47E5-9797-9E108F39755A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.WebApi", "Jobsity.Chat.WebApi\Jobsity.Chat.WebApi.csproj", "{A4D4E2E7-8248-47B2-B08D-E43E27214053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.WebApi", "Jobsity.Chat.WebApi\Jobsity.Chat.WebApi.csproj", "{A4D4E2E7-8248-47B2-B08D-E43E27214053}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.Application", "Jobsity.Chat.Application\Jobsity.Chat.Application.csproj", "{AD7369A3-FA1A-49D1-9538-196AD424BFAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.Application", "Jobsity.Chat.Application\Jobsity.Chat.Application.csproj", "{AD7369A3-FA1A-49D1-9538-196AD424BFAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.Domain", "Jobsity.Chat.Domain\Jobsity.Chat.Domain.csproj", "{803EE9B6-3DE5-4CFE-AAE9-22BD08AD71B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.Domain", "Jobsity.Chat.Domain\Jobsity.Chat.Domain.csproj", "{803EE9B6-3DE5-4CFE-AAE9-22BD08AD71B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.Data", "Jobsity.Chat.Data\Jobsity.Chat.Data.csproj", "{8E061BF4-5944-44BF-990C-3B724970A050}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.Data", "Jobsity.Chat.Data\Jobsity.Chat.Data.csproj", "{8E061BF4-5944-44BF-990C-3B724970A050}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.IoC", "Jobsity.Chat.IoC\Jobsity.Chat.IoC.csproj", "{FA49F73F-CDE1-4428-A34D-990CAC678D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.IoC", "Jobsity.Chat.IoC\Jobsity.Chat.IoC.csproj", "{FA49F73F-CDE1-4428-A34D-990CAC678D98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.CrossCutting", "Jobsity.Chat.CrossCutting\Jobsity.Chat.CrossCutting.csproj", "{1339F4D8-7AD8-4196-982E-086853B7F95B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.CrossCutting", "Jobsity.Chat.CrossCutting\Jobsity.Chat.CrossCutting.csproj", "{1339F4D8-7AD8-4196-982E-086853B7F95B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.Core", "Jobsity.Chat.Core\Jobsity.Chat.Core.csproj", "{605003B2-8945-4CB3-ABB0-D94F0241E102}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{1339F4D8-7AD8-4196-982E-086853B7F95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1339F4D8-7AD8-4196-982E-086853B7F95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1339F4D8-7AD8-4196-982E-086853B7F95B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{605003B2-8945-4CB3-ABB0-D94F0241E102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{605003B2-8945-4CB3-ABB0-D94F0241E102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{605003B2-8945-4CB3-ABB0-D94F0241E102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{605003B2-8945-4CB3-ABB0-D94F0241E102}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
