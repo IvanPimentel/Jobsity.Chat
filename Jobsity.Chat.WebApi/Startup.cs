@@ -1,3 +1,4 @@
+using Jobsity.Chat.IoC.NativeInjector;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,7 +36,6 @@ namespace Jobsity.Chat.WebApi
                 builder.AllowAnyHeader();
             }));
 
-
             services.AddControllers();
 
             var key = Encoding.ASCII.GetBytes(Configuration["OAuth:Secret"]);
@@ -61,6 +61,8 @@ namespace Jobsity.Chat.WebApi
             {
                 options.AddPolicy("user", policy => policy.RequireClaim("Chat", "user"));
             });
+
+            services.AddDependiencies();
 
             services.AddSwaggerGen(c =>
             {
