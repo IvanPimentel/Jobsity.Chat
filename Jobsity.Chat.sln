@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.Domain", "Jobs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.Data", "Jobsity.Chat.Data\Jobsity.Chat.Data.csproj", "{8E061BF4-5944-44BF-990C-3B724970A050}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.IoC", "Jobsity.Chat.IoC\Jobsity.Chat.IoC.csproj", "{FA49F73F-CDE1-4428-A34D-990CAC678D98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.CrossCutting", "Jobsity.Chat.CrossCutting\Jobsity.Chat.CrossCutting.csproj", "{1339F4D8-7AD8-4196-982E-086853B7F95B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{8E061BF4-5944-44BF-990C-3B724970A050}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E061BF4-5944-44BF-990C-3B724970A050}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E061BF4-5944-44BF-990C-3B724970A050}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA49F73F-CDE1-4428-A34D-990CAC678D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA49F73F-CDE1-4428-A34D-990CAC678D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA49F73F-CDE1-4428-A34D-990CAC678D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA49F73F-CDE1-4428-A34D-990CAC678D98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1339F4D8-7AD8-4196-982E-086853B7F95B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1339F4D8-7AD8-4196-982E-086853B7F95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1339F4D8-7AD8-4196-982E-086853B7F95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1339F4D8-7AD8-4196-982E-086853B7F95B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +71,8 @@ Global
 		{AD7369A3-FA1A-49D1-9538-196AD424BFAE} = {3ADD3323-629A-47A6-AA9B-80B7F0877F1E}
 		{803EE9B6-3DE5-4CFE-AAE9-22BD08AD71B3} = {D983EF4E-FB1F-4B32-9C16-71B36C9B5F59}
 		{8E061BF4-5944-44BF-990C-3B724970A050} = {94B437F4-A6C0-4EED-BA97-E160FEA395C5}
+		{FA49F73F-CDE1-4428-A34D-990CAC678D98} = {8A5A42AC-4492-4F34-8866-3F7093FB20B3}
+		{1339F4D8-7AD8-4196-982E-086853B7F95B} = {EEAF3581-1605-47E5-9797-9E108F39755A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BBFDBEE7-0E8A-4330-B95C-FA185243952F}
