@@ -8,6 +8,8 @@ namespace Jobsity.Chat.Data.Context
 {
     public class ChatContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
+        public DbSet<ChatRoom> ChatRooms { get; set; }
+
         public ChatContext(DbContextOptions options) : base(options)
         {
         }
