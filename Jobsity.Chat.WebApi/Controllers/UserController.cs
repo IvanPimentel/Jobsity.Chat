@@ -18,17 +18,19 @@ namespace Jobsity.Chat.WebApi.Controllers
             _userAppService = userAppService;
         }
 
+        [HttpPost]
         public async Task<IdentityResult> Create([FromBody] CreateUserViewModel user)
         {
             return await _userAppService.Create(user);
         }
 
-        [Authorize]
+        [HttpGet][Authorize]
         public async Task<UserViewModel> GetCurrentUser()
         {
             return await _userAppService.GetCurrentUser(User);
         }
 
+        [HttpPost("Login")]
         public async Task<LoginResponseViewModel> Login(UserLoginViewModel userLoginViewModel)
         {
             return await _userAppService.Login(userLoginViewModel);
