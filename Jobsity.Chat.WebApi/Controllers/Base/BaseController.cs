@@ -20,26 +20,31 @@ namespace Jobsity.Chat.WebApi.Controllers.Base
             _appService = appService;
         }
 
+        [HttpPost]
         public Task<BaseResponse<TViewModel>> Create(TViewModel model)
         {
             return _appService.Create(model);
         }
 
+        [HttpDelete]
         public Task<BaseResponse<object>> Delete(Guid id)
         {
             return _appService.Delete(id);
         }
 
+        [HttpGet]
         public Task<BaseResponse<IEnumerable<TViewModel>>> GetAll()
         {
             return _appService.GetAll();
         }
 
+        [HttpGet("{id}")]
         public Task<BaseResponse<TViewModel>> GetByIdAsync(Guid id)
         {
             return _appService.GetByIdAsync(id);
         }
 
+        [HttpPut]
         public Task<BaseResponse<TViewModel>> Update(TViewModel model)
         {
             return _appService.Update(model);

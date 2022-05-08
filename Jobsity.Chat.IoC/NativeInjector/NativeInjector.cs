@@ -1,4 +1,6 @@
-﻿using Jobsity.Chat.Application.Interfaces;
+﻿using AutoMapper;
+using Jobsity.Chat.Application.AutoMapper;
+using Jobsity.Chat.Application.Interfaces;
 using Jobsity.Chat.Application.Services;
 using Jobsity.Chat.Data.Repository;
 using Jobsity.Chat.Domain.Interfaces.Repositories;
@@ -13,11 +15,17 @@ namespace Jobsity.Chat.IoC.NativeInjector
     {
         public static IServiceCollection AddDependiencies(this IServiceCollection services, Assembly assembly)
         {
+            ConfigureAutoMapper(services);
             AppServices(services);
             DomainServices(services);
             Repositories(services);
-            services.AddAutoMapper(assembly);
             return services;
+        }
+
+        private static void ConfigureAutoMapper(IServiceCollection services)
+        {
+            IMapper mapper = AutoMapperConfig.RegisterMappings().CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         private static void AppServices(IServiceCollection services)

@@ -49,6 +49,7 @@ namespace Jobsity.Chat.WebApi
             services.AddIdentity<User, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ChatContext>();
 
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Jobsity.Chat.WebApi", Version = "v1" });

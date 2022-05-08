@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Jobsity.Chat.Application.ViewModels;
+using Jobsity.Chat.Application.ViewModels.ChatRoom;
 using Jobsity.Chat.Domain.Models;
 
 namespace Jobsity.Chat.Application.Mapper
@@ -9,7 +10,10 @@ namespace Jobsity.Chat.Application.Mapper
         public ViewModelToDomainMappingProfile()
         {
             CreateMap<UserViewModel, User>()
-                .ConvertUsing(u => new User(u.Username, u.Name));
+                .ConvertUsing(v => new User(v.Username, v.Name));
+
+            CreateMap<ChatRoomViewModel, ChatRoom>()
+                .ConstructUsing(v => new ChatRoom(v.Name));
         }
     }
 }
