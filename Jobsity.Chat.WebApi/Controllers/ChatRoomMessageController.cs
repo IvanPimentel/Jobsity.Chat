@@ -1,7 +1,11 @@
 ﻿using Jobsity.Chat.Application.Interfaces;
+using Jobsity.Chat.Application.ViewModels.Base;
 using Jobsity.Chat.Application.ViewModels.ChatRoom;
 using Jobsity.Chat.WebApi.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Jobsity.Chat.WebApi.Controllers
 {
@@ -11,6 +15,12 @@ namespace Jobsity.Chat.WebApi.Controllers
     {
         public ChatRoomMessageController(IChatRoomMessageAppService appService) : base(appService)
         {
+        }
+
+        [HttpGet("GetByChatRoomId/{chatRoomId}")]
+        public async Task<BaseResponse<IEnumerable<ChatRoomMessageViewModel>>> GetByChatRoomId(Guid chatRoomId)
+        {
+            return await _appService.GetByChatRoomId(chatRoomId);
         }
     }
 }
