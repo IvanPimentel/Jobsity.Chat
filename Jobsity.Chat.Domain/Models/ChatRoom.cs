@@ -1,12 +1,14 @@
 ﻿using Jobsity.Chat.Domain.Class;
 using Jobsity.Chat.Domain.Models.Base;
 using System;
+using System.Collections.Generic;
 
 namespace Jobsity.Chat.Domain.Models
 {
     public class ChatRoom : BaseModel
     {
         public string Name { get; private set; }
+        public virtual List<ChatRoomMessage> ChatRoomMessages { get; set; }
 
         protected ChatRoom() { }
 

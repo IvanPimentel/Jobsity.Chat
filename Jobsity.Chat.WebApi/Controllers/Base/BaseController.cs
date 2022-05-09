@@ -24,7 +24,7 @@ namespace Jobsity.Chat.WebApi.Controllers.Base
         }
 
         [HttpPost]
-        public Task<BaseResponse<TViewModel>> Create(TViewModel model)
+        public Task<BaseResponse<TViewModel>> Create([FromBody] TViewModel model)
         {
             return _appService.Create(model);
         }
@@ -48,7 +48,7 @@ namespace Jobsity.Chat.WebApi.Controllers.Base
         }
 
         [HttpPut]
-        public Task<BaseResponse<TViewModel>> Update(TViewModel model)
+        public Task<BaseResponse<TViewModel>> Update([FromBody] TViewModel model)
         {
             return _appService.Update(model);
         }

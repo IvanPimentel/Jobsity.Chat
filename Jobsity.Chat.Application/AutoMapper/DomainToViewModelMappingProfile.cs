@@ -11,6 +11,8 @@ namespace Jobsity.Chat.Application.AutoMapper
         {
             CreateMap<User, UserViewModel>();
             CreateMap<ChatRoom, ChatRoomViewModel>();
+            CreateMap<ChatRoomMessage, ChatRoomMessageViewModel>();
+
         }
     }
 }

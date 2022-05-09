@@ -32,16 +32,19 @@ namespace Jobsity.Chat.IoC.NativeInjector
         {
             services.AddScoped<IUserAppService, UserAppService>();
             services.AddScoped<IChatRoomAppService, ChatRoomAppService>();
+            services.AddScoped<IChatRoomMessageAppService, ChatRoomMessageAppService>();
         }
 
         private static void DomainServices(IServiceCollection services)
         {
             services.AddScoped<IChatRoomService, ChatRoomService>();
+            services.AddScoped<IChatRoomMessageService, ChatRoomMessageService>();
         }
 
         private static void Repositories(IServiceCollection services)
         {
             services.AddScoped<IChatRoomRepository, ChatRoomRepository>();
+            services.AddScoped<IChatRoomMessageRepository, ChatRoomMessageRepository>();
         }
     }
 }
