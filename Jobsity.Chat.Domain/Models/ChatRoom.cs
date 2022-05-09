@@ -6,14 +6,13 @@ namespace Jobsity.Chat.Domain.Models
 {
     public class ChatRoom : BaseModel
     {
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         protected ChatRoom() { }
 
         public ChatRoom(string name)
         {
             Name = name;
-            CreatedAt = DateTime.Now;
             Valitation();
         }
 

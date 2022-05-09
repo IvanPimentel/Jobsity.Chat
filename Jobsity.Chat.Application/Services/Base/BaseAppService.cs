@@ -27,7 +27,8 @@ namespace Jobsity.Chat.Application.Services.Base
         {
             try
             {
-                var serviceResult = await _service.Create(_mapper.Map<TModel>(model));
+                var domainModel = _mapper.Map<TModel>(model);
+                var serviceResult = await _service.Create(domainModel);
                 return new BaseResponse<TViewModel>(_mapper.Map<TViewModel>(serviceResult));
             }
             catch (Exception ex)

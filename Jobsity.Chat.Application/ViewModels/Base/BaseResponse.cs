@@ -19,5 +19,12 @@ namespace Jobsity.Chat.Application.ViewModels.Base
             Success = false;
             Message = ex.Message;
         }
+
+        public BaseResponse(string message, TData data, bool success = true)
+        {
+            Message = message;
+            Data = data;
+            Success = success;
+        }
     }
 }

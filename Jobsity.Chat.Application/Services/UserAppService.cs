@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,8 @@ namespace Jobsity.Chat.Application.Services
             try
             {
                 var serviceResult = await _userManager.CreateAsync(new User(user.Username, user.Name), user.Password);
-                return new BaseResponse<IdentityResult>(serviceResult);
+                return new BaseResponse<IdentityResult>(serviceResult.Succeeded ? 
+                    "User created with success, please login to access the chat!" : serviceResult.Errors.FirstOrDefault().Description, serviceResult, serviceResult.Succeeded);
             }
             catch (Exception ex)
             {
@@ -51,7 +53,8 @@ namespace Jobsity.Chat.Application.Services
         {
             try
             {
-                var currentUser = await _userManager.GetUserAsync(user);
+                var username = user.Identity.Name;
+                var currentUser = await _userManager.FindByNameAsync(username);
                 return new BaseResponse<UserViewModel>(_mapper.Map<UserViewModel>(currentUser));
             }
             catch (Exception ex)
@@ -88,10 +91,11 @@ namespace Jobsity.Chat.Application.Services
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, userLoginViewModel.Username),
+                new Claim("Id", userLoginViewModel.Username),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["OAuth:Secret"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiration = DateTime.UtcNow.AddHours(1);
             

@@ -1,6 +1,7 @@
 ﻿using Jobsity.Chat.Application.Interfaces;
 using Jobsity.Chat.Application.ViewModels;
 using Jobsity.Chat.Application.ViewModels.Base;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,8 @@ namespace Jobsity.Chat.WebApi.Controllers
             return await _userAppService.Create(user);
         }
 
-        [HttpGet][Authorize]
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<BaseResponse<UserViewModel>> GetCurrentUser()
         {
             return await _userAppService.GetCurrentUser(User);
