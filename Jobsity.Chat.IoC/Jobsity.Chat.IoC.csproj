@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Jobsity.Chat.Application\Jobsity.Chat.Application.csproj" />
+    <ProjectReference Include="..\Jobsity.Chat.Data\Jobsity.Chat.Data.csproj" />
   </ItemGroup>
 
 </Project>

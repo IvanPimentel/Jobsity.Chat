@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace Jobsity.Chat.WebApi
 {
@@ -39,20 +40,32 @@ namespace Jobsity.Chat.WebApi
 
             services.AddControllers();
 
-            var key = Configuration["OAuth:Secret"];
-            ConfigureAuth(services, key);
-
-
             services.AddDependiencies(Assembly.GetExecutingAssembly());
             var connectionString = Configuration["ConnectionString:Default"];
             services.AddDbContext<ChatContext>(options => options.UseSqlServer(connectionString));
-            services.AddIdentity<User, IdentityRole<Guid>>()
-                .AddEntityFrameworkStores<ChatContext>();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Jobsity.Chat.WebApi", Version = "v1" });
             });
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+                 options.TokenValidationParameters = new TokenValidationParameters
+                 {
+                     ValidateIssuer = false,
+                     ValidateAudience = false,
+                     ValidateLifetime = true,
+                     ValidateIssuerSigningKey = true,
+                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"])),
+                     ClockSkew = TimeSpan.Zero
+                 });
+            services.AddIdentity<User, IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<ChatContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +77,8 @@ namespace Jobsity.Chat.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jobsity.Chat.WebApi v1"));
             }
+
+            app.UseCors("DefaultPolicy");
             
             app.UseRouting();
 
@@ -76,42 +91,5 @@ namespace Jobsity.Chat.WebApi
             });
         }
 
-        private static void ConfigureAuth(IServiceCollection services, string secretKey)
-        {
-            var key = Encoding.ASCII.GetBytes(secretKey);
-            var defaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            var jwtPolicy = new AuthorizationPolicyBuilder()
-                        .AddAuthenticationSchemes(defaultScheme)
-                        .RequireAuthenticatedUser()
-                        .Build();
-
-            services.AddAuthorization(auth =>
-            {
-                auth.AddPolicy(defaultScheme, jwtPolicy);
-            })
-            .AddAuthentication(options =>
-            {
-                options.DefaultScheme = defaultScheme;
-                options.DefaultAuthenticateScheme = defaultScheme;
-                options.DefaultForbidScheme = defaultScheme;
-                options.DefaultSignInScheme = defaultScheme;
-                options.DefaultSignOutScheme = defaultScheme;
-                options.DefaultChallengeScheme = defaultScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-        }
     }
 }
