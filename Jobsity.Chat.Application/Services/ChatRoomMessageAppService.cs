@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Jobsity.Chat.Application.Handlers.Notifications.Stock;
 using Jobsity.Chat.Application.Interfaces;
 using Jobsity.Chat.Application.Services.Base;
 using Jobsity.Chat.Application.ViewModels.Base;
@@ -6,6 +7,7 @@ using Jobsity.Chat.Application.ViewModels.ChatRoom;
 using Jobsity.Chat.Application.ViewModels.ChatRoom.SignalR;
 using Jobsity.Chat.Domain.Interfaces.Services;
 using Jobsity.Chat.Domain.Models;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
@@ -22,17 +24,20 @@ namespace Jobsity.Chat.Application.Services
         private readonly IHubContext<ChatRoomMessageHub> _streaming;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly UserManager<User> _userManager;
+        private readonly IMediator _mediator;
 
         public ChatRoomMessageAppService(
             IChatRoomMessageService service,
             IMapper mapper,
             IHubContext<ChatRoomMessageHub> streaming,
-            IHttpContextAccessor httpContextAccessor, 
-            UserManager<User> userManager) : base(service, mapper)
+            IHttpContextAccessor httpContextAccessor,
+            UserManager<User> userManager, 
+            IMediator mediator) : base(service, mapper)
         {
             _streaming = streaming;
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
+            _mediator = mediator;
         }
 
         public new async Task<BaseResponse<ChatRoomMessageViewModel>> Create(ChatRoomMessageViewModel model)
@@ -42,10 +47,16 @@ namespace Jobsity.Chat.Application.Services
                 var userName = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 var user = await _userManager.FindByNameAsync(userName);
                 model.UserId = user.Id;
+
                 var domainModel = _mapper.Map<ChatRoomMessage>(model);
                 var serviceResult = await _service.Create(domainModel);
+                
+                if(domainModel.IsStockCode())
+                    await _mediator.Publish(new StockCodeNotification(domainModel.Content));
+
                 var result = _mapper.Map<ChatRoomMessageViewModel>(serviceResult);
                 await _streaming.Clients.All.SendAsync("NewChatMessage", result);
+
                 return new BaseResponse<ChatRoomMessageViewModel>(result);
             }
             catch (Exception ex)

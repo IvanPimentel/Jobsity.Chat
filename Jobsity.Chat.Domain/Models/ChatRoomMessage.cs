@@ -31,5 +31,10 @@ namespace Jobsity.Chat.Domain.Models
             if (ChatRoomId == Guid.Empty)
                 throw new DomainExeption("ChatRoomId is required");
         }
+
+        public bool IsStockCode()
+        {
+            return Content.StartsWith("/stock=");
+        }
     }
 }

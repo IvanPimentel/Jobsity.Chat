@@ -9,5 +9,14 @@ namespace Jobsity.Chat.Application.ViewModels.ChatRoom
         public Guid UserId { get; set; }
         public Guid ChatRoomId { get; set; }
         public virtual ChatRoomViewModel ChatRoom { get; set; }
+        public ChatRoomMessageViewModel()
+        {
+        }
+
+        public ChatRoomMessageViewModel(string content, Guid chatRoomId)
+        {
+            Content = content;
+            ChatRoomId = chatRoomId;
+        }
     }
 }

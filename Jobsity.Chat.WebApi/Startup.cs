@@ -17,6 +17,8 @@ using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using Jobsity.Chat.WebApi.SignalR;
+using Jobsity.Chat.Application.Handlers.Configuration;
+using Jobsity.Chat.Application.Services.HostedServices;
 
 namespace Jobsity.Chat.WebApi
 {
@@ -72,6 +74,9 @@ namespace Jobsity.Chat.WebApi
             services.AddIdentity<User, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ChatContext>()
                 .AddDefaultTokenProviders();
+
+            services.ConfigureMediatR();
+            services.AddHostedService<StockCodeHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
