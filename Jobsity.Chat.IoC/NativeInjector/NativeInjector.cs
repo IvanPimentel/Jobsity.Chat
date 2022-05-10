@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Jobsity.Chat.Application.AutoMapper;
 using Jobsity.Chat.Application.Interfaces;
+using Jobsity.Chat.Application.Interfaces.SignalR;
 using Jobsity.Chat.Application.Services;
+using Jobsity.Chat.Application.ViewModels.ChatRoom.SignalR;
 using Jobsity.Chat.Data.Repository;
 using Jobsity.Chat.Domain.Interfaces.Repositories;
 using Jobsity.Chat.Domain.Interfaces.Services;
@@ -33,6 +35,7 @@ namespace Jobsity.Chat.IoC.NativeInjector
             services.AddScoped<IUserAppService, UserAppService>();
             services.AddScoped<IChatRoomAppService, ChatRoomAppService>();
             services.AddScoped<IChatRoomMessageAppService, ChatRoomMessageAppService>();
+            services.AddSingleton<IChatRoomMessageHub, ChatRoomMessageHub>();
         }
 
         private static void DomainServices(IServiceCollection services)

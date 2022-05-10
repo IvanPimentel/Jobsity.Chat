@@ -92,7 +92,8 @@ namespace Jobsity.Chat.Application.Services
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, userLoginViewModel.Username),
                 new Claim("Id", userLoginViewModel.Username),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, userLoginViewModel.Username)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
