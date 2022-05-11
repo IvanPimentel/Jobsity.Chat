@@ -1,30 +1,26 @@
-﻿using Jobsity.Chat.Application.Interfaces.SignalR;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Threading.Tasks;
 
 namespace Jobsity.Chat.Application.ViewModels.ChatRoom.SignalR
 {
-    public class ChatRoomMessageHub : Hub, IChatRoomMessageHub
+    public class ChatRoomMessageHub : Hub
     {
-        public string GroupName { get; private set; }
 
-        public async Task JoinAsync(Guid chatRoomId)
+        public async Task Join(Guid chatRoomId)
         {
-            GroupName = chatRoomId.ToString();
-            await Groups.AddToGroupAsync(Context.ConnectionId, GroupName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, chatRoomId.ToString());
         }
 
-        public async Task SendAsync(ChatRoomMessageViewModel chatMessage)
+        public async Task Send(ChatRoomMessageViewModel chatMessage)
         {
-            GroupName = chatMessage.ChatRoomId.ToString();
-            await Clients.Group(GroupName).SendAsync("NewChatMessage", chatMessage);
+            await Clients.Group(chatMessage.ChatRoomId.ToString()).SendAsync("NewChatMessage", chatMessage);
             //await Clients.All.SendAsync("NewChatMessage", chatMessage);
         }
 
-        public async Task LeaveAsync()
+        public async Task Leave(Guid chatRoomId)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, GroupName);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatRoomId.ToString());
         }
     }
 }

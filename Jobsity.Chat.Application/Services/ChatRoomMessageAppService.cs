@@ -44,9 +44,13 @@ namespace Jobsity.Chat.Application.Services
         {
             try
             {
-                var userName = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var user = await _userManager.FindByNameAsync(userName);
-                model.UserId = user.Id;
+                if (_httpContextAccessor.HttpContext != null)
+                {
+                    var userName = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    var user = await _userManager.FindByNameAsync(userName);
+                    model.UserId = user.Id;
+                }
+                
 
                 var domainModel = _mapper.Map<ChatRoomMessage>(model);
                 var serviceResult = await _service.Create(domainModel);
@@ -55,7 +59,8 @@ namespace Jobsity.Chat.Application.Services
                     await _mediator.Publish(new StockCodeNotification(domainModel.Content));
 
                 var result = _mapper.Map<ChatRoomMessageViewModel>(serviceResult);
-                await _streaming.Clients.All.SendAsync("NewChatMessage", result);
+                await _streaming.Clients.Group(domainModel.ChatRoomId.ToString()).SendAsync("NewChatMessage", result);
+                //await _streaming.Clients.All.SendAsync("NewChatMessage", result);
 
                 return new BaseResponse<ChatRoomMessageViewModel>(result);
             }
