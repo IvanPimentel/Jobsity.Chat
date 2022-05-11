@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Jobsity.Chat.Application.AutoMapper;
+using Jobsity.Chat.Application.Broker;
 using Jobsity.Chat.Application.Interfaces;
 using Jobsity.Chat.Application.Services;
 using Jobsity.Chat.Data.Repository;
@@ -33,6 +34,7 @@ namespace Jobsity.Chat.IoC.NativeInjector
             services.AddScoped<IUserAppService, UserAppService>();
             services.AddScoped<IChatRoomAppService, ChatRoomAppService>();
             services.AddScoped<IChatRoomMessageAppService, ChatRoomMessageAppService>();
+            services.AddSingleton<IStockBrokerService, StockBrokerService>();
         }
 
         private static void DomainServices(IServiceCollection services)

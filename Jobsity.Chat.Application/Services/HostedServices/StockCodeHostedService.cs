@@ -1,7 +1,8 @@
-﻿using Jobsity.Chat.Application.Handlers.Notifications.Stock;
-using MediatR;
+﻿using Jobsity.Chat.Application.Broker;
+using Jobsity.Chat.CrossCutting.Broker;
 using Microsoft.Extensions.Hosting;
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,29 +10,24 @@ namespace Jobsity.Chat.Application.Services.HostedServices
 {
     public class StockCodeHostedService : BackgroundService
     {
-        private readonly IMediator _mediator;
+        private readonly IStockBrokerService _stockBrokerService;
+        private readonly IEnumerable<BrokerConfig> _brokerConfigs;
 
-        public StockCodeHostedService(IMediator mediator)
+        public StockCodeHostedService(
+            IStockBrokerService stockBrokerService, 
+            IEnumerable<BrokerConfig> brokerConfigs)
         {
-            _mediator = mediator;
+            _stockBrokerService = stockBrokerService;
+            _brokerConfigs = brokerConfigs;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             if (!stoppingToken.IsCancellationRequested)
             {
-                try
-                {
-                    // consumir RabbitMQ de retorno e criar mensagem
-
-                    await Task.Delay(20 * 1000, stoppingToken);
-                    await _mediator.Publish(new StockCodeProcessNotification("APPL.US quote is $93.42 per share", Guid.Parse("F632A1AF-CD05-4706-6E45-08DA310590DC")));
-                }
-                catch(Exception ex)
-                {
-
-                }
-
+                var responseBroker = _brokerConfigs.FirstOrDefault(b => b.Name == "ResponseBroker");
+                await Task.Run(() => _stockBrokerService.Receive(responseBroker));
+                await Task.Delay(1000, stoppingToken);
             }
         }
     }

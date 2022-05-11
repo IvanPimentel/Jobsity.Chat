@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using Jobsity.Chat.WebApi.SignalR;
 using Jobsity.Chat.Application.Handlers.Configuration;
 using Jobsity.Chat.Application.Services.HostedServices;
+using System.Collections.Generic;
+using Jobsity.Chat.CrossCutting.Broker;
 
 namespace Jobsity.Chat.WebApi
 {
@@ -34,15 +36,12 @@ namespace Jobsity.Chat.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options => options.AddPolicy("DefaultPolicy", builder =>
-            {
-                builder.AllowAnyOrigin();
-                builder.AllowAnyMethod();
-                builder.AllowAnyHeader();
-                builder.SetIsOriginAllowed(origin => true);
-            }));
 
             services.AddControllers();
+            
+            IEnumerable<BrokerConfig> options = Configuration.GetSection("Brokers").Get<IEnumerable<BrokerConfig>>();
+            
+            services.AddSingleton(options);
 
             services.AddSignalR();
 

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Jobsity.Chat.CrossCutting\Jobsity.Chat.CrossCutting.csproj" />
     <ProjectReference Include="..\Jobsity.Chat.Domain\Jobsity.Chat.Domain.csproj" />
   </ItemGroup>
 
