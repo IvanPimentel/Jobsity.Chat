@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.CrossCutting",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.Core", "Jobsity.Chat.Core\Jobsity.Chat.Core.csproj", "{605003B2-8945-4CB3-ABB0-D94F0241E102}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Services", "5 - Services", "{A29F7668-295A-4F10-9C45-2A54712771E5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - WorkerServices", "5 - WorkerServices", "{A29F7668-295A-4F10-9C45-2A54712771E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.StooqService", "Jobsity.Chat.StooqService\Jobsity.Chat.StooqService.csproj", "{E0A7C7C3-57B3-4EA9-BCD5-CC64541B4E85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{605003B2-8945-4CB3-ABB0-D94F0241E102}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{605003B2-8945-4CB3-ABB0-D94F0241E102}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{605003B2-8945-4CB3-ABB0-D94F0241E102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0A7C7C3-57B3-4EA9-BCD5-CC64541B4E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A7C7C3-57B3-4EA9-BCD5-CC64541B4E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A7C7C3-57B3-4EA9-BCD5-CC64541B4E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A7C7C3-57B3-4EA9-BCD5-CC64541B4E85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{8E061BF4-5944-44BF-990C-3B724970A050} = {94B437F4-A6C0-4EED-BA97-E160FEA395C5}
 		{FA49F73F-CDE1-4428-A34D-990CAC678D98} = {8A5A42AC-4492-4F34-8866-3F7093FB20B3}
 		{1339F4D8-7AD8-4196-982E-086853B7F95B} = {EEAF3581-1605-47E5-9797-9E108F39755A}
+		{E0A7C7C3-57B3-4EA9-BCD5-CC64541B4E85} = {A29F7668-295A-4F10-9C45-2A54712771E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BBFDBEE7-0E8A-4330-B95C-FA185243952F}
