@@ -28,7 +28,8 @@ namespace Jobsity.Chat.Application.Handlers.Notifications.Stock
             {
                 _logger.LogInformation($"Sending stock code command: {notification.Message}");
                 var requestBroker = _brokerConfigs.FirstOrDefault(b => b.Name == "RequestBroker");
-                _stockBrokerService.Send(requestBroker, notification.Message);
+                var stringMessage = Newtonsoft.Json.JsonConvert.SerializeObject(notification);
+                _stockBrokerService.Send(requestBroker, stringMessage);
                 _logger.LogInformation($"Stock code sent successfully: {notification.Message}");
 
             }

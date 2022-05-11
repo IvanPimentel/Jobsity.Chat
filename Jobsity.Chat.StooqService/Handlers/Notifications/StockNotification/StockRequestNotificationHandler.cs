@@ -1,7 +1,9 @@
-﻿using Jobsity.Chat.StooqService.Model;
+﻿using Jobsity.Chat.CrossCutting.Broker.Model;
+using Jobsity.Chat.StooqService.Model;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.FileIO;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading;
@@ -24,7 +26,9 @@ namespace Jobsity.Chat.StooqService.Handlers.Notifications.StockNotification
         {
             if (!cancellationToken.IsCancellationRequested)
             {
-                string stockCode = notification.Message.Replace("/stock=","").Trim().ToLower();
+                var chatMessage = JsonConvert.DeserializeObject<ChatMessageBroker>(notification.Message);
+
+                string stockCode = chatMessage.Message.Replace("/stock=","").Trim().ToLower();
                 var url = $"https://stooq.com/q/l/?s={stockCode}&f=sd2t2ohlcv&h&e=csv";
 
                 using (HttpClient client = new HttpClient())
@@ -37,7 +41,7 @@ namespace Jobsity.Chat.StooqService.Handlers.Notifications.StockNotification
                         _logger.LogInformation($"Start to processing CSV");
                         var stock = await ProccessCsv(response);
                         _logger.LogInformation($"CSV processed with success");
-                        await _mediator.Publish(new StockResponseNotification(stock, stockCode));
+                        await _mediator.Publish(new StockResponseNotification(stock, chatMessage));
                     }
                     else
                     {

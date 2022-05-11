@@ -1,4 +1,5 @@
 ﻿using Jobsity.Chat.CrossCutting.Broker;
+using Jobsity.Chat.CrossCutting.Broker.Model;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -33,15 +34,21 @@ namespace Jobsity.Chat.StooqService.Handlers.Notifications.StockNotification
                 if (notification.Success)
                 {
                     _logger.LogInformation("Sending data response to broker");
-                    
 
-                    _broker.Send(responseBroker, MakeMessageResponse(notification));
+                    var json = Newtonsoft.Json.JsonConvert.SerializeObject(
+                        new ChatMessageBroker(MakeMessageResponse(notification), notification.ChatMessageBroker.ChatRoomId)
+                    );
+
+                    _broker.Send(responseBroker, json);
                     _logger.LogInformation("Success to process stock code");
                 }
                 else
                 {
                     _logger.LogError("Error on process response");
-                    _broker.Send(responseBroker, MakeErrorMessageResponse(notification));
+                    var json = Newtonsoft.Json.JsonConvert.SerializeObject(
+                        new ChatMessageBroker(MakeErrorMessageResponse(notification), notification.ChatMessageBroker.ChatRoomId)
+                    );
+                    _broker.Send(responseBroker, json);
                 }
             }
             return Task.CompletedTask;
@@ -54,7 +61,7 @@ namespace Jobsity.Chat.StooqService.Handlers.Notifications.StockNotification
 
         private static string MakeErrorMessageResponse(StockResponseNotification notification)
         {
-            return $"Quote: {notification.StockCode} is invalid or not found";
+            return $"Quote: {notification.Stock.Symbol} is invalid or not found";
         }
     }
 }

@@ -56,11 +56,10 @@ namespace Jobsity.Chat.Application.Services
                 var serviceResult = await _service.Create(domainModel);
                 
                 if(domainModel.IsStockCode())
-                    await _mediator.Publish(new StockCodeNotification(domainModel.Content));
+                    await _mediator.Publish(new StockCodeNotification(domainModel.Content, domainModel.ChatRoomId));
 
                 var result = _mapper.Map<ChatRoomMessageViewModel>(serviceResult);
                 await _streaming.Clients.Group(domainModel.ChatRoomId.ToString()).SendAsync("NewChatMessage", result);
-                //await _streaming.Clients.All.SendAsync("NewChatMessage", result);
 
                 return new BaseResponse<ChatRoomMessageViewModel>(result);
             }

@@ -18,7 +18,7 @@ namespace Jobsity.Chat.Data.Repository
 
         public async Task<IEnumerable<ChatRoomMessage>> GetByChatRoomId(Guid chatRoomId)
         {
-            return await _context.ChatRoomsMessages.Where(c => c.ChatRoomId == chatRoomId)
+            return await _context.ChatRoomsMessages.Include(c => c.User).AsNoTracking().Where(c => c.ChatRoomId == chatRoomId)
                 .OrderByDescending(c => c.CreatedAt).Take(50).OrderBy(c => c.CreatedAt).ToListAsync();
         }
     }

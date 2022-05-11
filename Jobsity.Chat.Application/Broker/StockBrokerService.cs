@@ -1,8 +1,9 @@
 ﻿using Jobsity.Chat.Application.Handlers.Notifications.Stock;
 using Jobsity.Chat.CrossCutting.Broker;
+using Jobsity.Chat.CrossCutting.Broker.Model;
 using MediatR;
+using Newtonsoft.Json;
 using RabbitMQ.Client.Events;
-using System;
 using System.Text;
 
 namespace Jobsity.Chat.Application.Broker
@@ -20,7 +21,8 @@ namespace Jobsity.Chat.Application.Broker
         {
             var body = mqMessage.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
-            await _mediator.Publish(new StockCodeProcessNotification(message, Guid.Parse("F632A1AF-CD05-4706-6E45-08DA310590DC")));
+            var chatMessage = JsonConvert.DeserializeObject<ChatMessageBroker>(message);
+            await _mediator.Publish(new StockCodeResponseNotification(chatMessage.Message, chatMessage.ChatRoomId));
         }
     }
 }

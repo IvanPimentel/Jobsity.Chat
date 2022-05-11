@@ -1,4 +1,5 @@
-﻿using Jobsity.Chat.StooqService.Model;
+﻿using Jobsity.Chat.CrossCutting.Broker.Model;
+using Jobsity.Chat.StooqService.Model;
 using MediatR;
 using System;
 
@@ -7,14 +8,15 @@ namespace Jobsity.Chat.StooqService.Handlers.Notifications.StockNotification
     public class StockResponseNotification : INotification
     {
         public Stock Stock { get; private set; }
-        public string StockCode { get; set; }
-
+        public ChatMessageBroker ChatMessageBroker { get; set; }
         public bool Success { get; private set; }
+        
 
-        public StockResponseNotification(Stock stock, string stockCode)
+
+        public StockResponseNotification(Stock stock, ChatMessageBroker chatMessageBroker)
         {
             Stock = stock;
-            StockCode = stockCode;
+            ChatMessageBroker = chatMessageBroker;
             Validation();
         }
 
