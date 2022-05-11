@@ -10,6 +10,7 @@ namespace Jobsity.Chat.WebApi.SignalR
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatRoomMessageHub>("/ChatRoomMessageNotify");
+                endpoints.MapHub<ChatRoomHub>("/ChatRoomNotify");
             });
             return app;
         }

@@ -37,7 +37,8 @@ namespace Jobsity.Chat.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             
             IEnumerable<BrokerConfig> options = Configuration.GetSection("Brokers").Get<IEnumerable<BrokerConfig>>();
             

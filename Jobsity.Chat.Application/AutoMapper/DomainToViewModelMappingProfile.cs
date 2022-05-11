@@ -11,7 +11,9 @@ namespace Jobsity.Chat.Application.AutoMapper
         {
             CreateMap<User, UserViewModel>();
             CreateMap<ChatRoom, ChatRoomViewModel>();
-            CreateMap<ChatRoomMessage, ChatRoomMessageViewModel>();
+            CreateMap<ChatRoomMessage, ChatRoomMessageViewModel>()
+                .ForMember(v => v.Username, d => d.MapFrom(d => d.User.UserName))
+                .ForMember(v => v.Name, d => d.MapFrom(d => d.User.Name));
 
         }
     }
