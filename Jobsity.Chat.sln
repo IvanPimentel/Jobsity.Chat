@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.IoC", "Jobsity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.CrossCutting", "Jobsity.Chat.CrossCutting\Jobsity.Chat.CrossCutting.csproj", "{1339F4D8-7AD8-4196-982E-086853B7F95B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobsity.Chat.Core", "Jobsity.Chat.Core\Jobsity.Chat.Core.csproj", "{605003B2-8945-4CB3-ABB0-D94F0241E102}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobsity.Chat.Core", "Jobsity.Chat.Core\Jobsity.Chat.Core.csproj", "{605003B2-8945-4CB3-ABB0-D94F0241E102}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Services", "5 - Services", "{A29F7668-295A-4F10-9C45-2A54712771E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

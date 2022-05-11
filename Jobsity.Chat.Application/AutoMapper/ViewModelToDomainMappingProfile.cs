@@ -16,7 +16,7 @@ namespace Jobsity.Chat.Application.Mapper
                 .ConstructUsing(v => new ChatRoom(v.Name));
 
             CreateMap<ChatRoomMessageViewModel, ChatRoomMessage>()
-                .ConstructUsing(v => new ChatRoomMessage(v.Content, v.UserId, v.ChatRoomId));
+                .ConstructUsing(v => new ChatRoomMessage(v.Content, v.UserId, v.ChatRoomId, v.Integration));
         }
     }
 }

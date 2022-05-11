@@ -16,6 +16,9 @@ using System;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
+using Jobsity.Chat.WebApi.SignalR;
+using Jobsity.Chat.Application.Handlers.Configuration;
+using Jobsity.Chat.Application.Services.HostedServices;
 
 namespace Jobsity.Chat.WebApi
 {
@@ -36,9 +39,14 @@ namespace Jobsity.Chat.WebApi
                 builder.AllowAnyOrigin();
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
+                builder.SetIsOriginAllowed(origin => true);
             }));
 
             services.AddControllers();
+
+            services.AddSignalR();
+
+            services.AddHttpContextAccessor();
 
             services.AddDependiencies(Assembly.GetExecutingAssembly());
             var connectionString = Configuration["ConnectionString:Default"];
@@ -66,6 +74,9 @@ namespace Jobsity.Chat.WebApi
             services.AddIdentity<User, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ChatContext>()
                 .AddDefaultTokenProviders();
+
+            services.ConfigureMediatR();
+            services.AddHostedService<StockCodeHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,17 +89,24 @@ namespace Jobsity.Chat.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jobsity.Chat.WebApi v1"));
             }
 
-            app.UseCors("DefaultPolicy");
             
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCors(x => x
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .SetIsOriginAllowed(origin => true)
+               .AllowCredentials());
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            app.ConfigureEndPoinsSignalR();
         }
 
     }

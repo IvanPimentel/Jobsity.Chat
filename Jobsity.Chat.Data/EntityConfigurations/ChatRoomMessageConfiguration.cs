@@ -14,13 +14,20 @@ namespace Jobsity.Chat.Data.EntityTypeConfigurations
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(x => x.Integration)
+                .IsRequired()
+                .HasDefaultValue(false);
+
             builder.HasOne(x => x.User)
                 .WithMany(x => x.ChatRoomMessages)
-                .HasForeignKey(x => x.UserId);
+                .IsRequired(false)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.ChatRoom)
                 .WithMany(x => x.ChatRoomMessages)
                 .HasForeignKey(x => x.ChatRoomId);
+
 
         }
     }
