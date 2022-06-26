@@ -1,6 +1,6 @@
 # Jobsity.Chat
 
-This Application is a chat with rooms developed with .NET 5.
+This Application is a chat with rooms developed with .NET 5. The goal of this aplications is be a web chat where the users can talk to each other and with the command `/stock={stock_code}` they can consult the price of this stock code.
 
 This solution contain WebApi REST for clients and a Service to consume the Stooq API.
 
@@ -14,6 +14,18 @@ This solutions have 5 layers:
         4.2.IoC
         4.3.CrossCutting
     5.WorkerServices
+	6.Tests
+
+### Requirements
+- RabbitMQ
+- MSSQL Server
+
+**For this application to work with full functionality, you need to run the following projects:**
+
+- Jobsity.Chat.WebApi
+- Jobsity.Chat.StooqService
+
+
 
 ## WEB API
 
@@ -58,7 +70,7 @@ these configurations are in appsetings.json on Presentation Project.
   ]
 ```
 
-The database for this project is a Microsoft SQL Server Express.
+The **RequestBroker** and **ResponseBroker** is the broker to do the integrations for get the stock prices.
 
 **Is nescessary to run the migrations of the project 4.1-Data**
 
@@ -87,6 +99,7 @@ these configurations are in own appsetings.json
     }
   ]
 ```
+The **RequestBroker** and **ResponseBroker** is the broker to do the integrations for get the stock prices. Is the same of the WEB API project.
 
 
 
