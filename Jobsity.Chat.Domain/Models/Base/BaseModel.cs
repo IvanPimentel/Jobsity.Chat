@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using FluentValidation.Results;
 
 namespace Jobsity.Chat.Domain.Models.Base
 {
@@ -8,7 +10,9 @@ namespace Jobsity.Chat.Domain.Models.Base
         public DateTime CreatedAt { get; protected set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; protected set; }
 
-        protected abstract void Valitation();
+        [NotMapped]
+        public ValidationResult ValidationResult;
+        public abstract bool IsValid();
 
     }
 }

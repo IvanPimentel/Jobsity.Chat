@@ -1,8 +1,10 @@
-﻿using Jobsity.Chat.Domain.Interfaces.Repositories.Base;
+﻿using Jobsity.Chat.Domain.Class;
+using Jobsity.Chat.Domain.Interfaces.Repositories.Base;
 using Jobsity.Chat.Domain.Interfaces.Services.Base;
 using Jobsity.Chat.Domain.Models.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Jobsity.Chat.Domain.Services.Base
@@ -21,7 +23,10 @@ namespace Jobsity.Chat.Domain.Services.Base
 
         public async Task<TModel> Create(TModel model)
         {
-            return await _repository.Create(model);
+            if (model.IsValid())
+                return await _repository.Create(model);
+            else
+                throw new DomainExeption(string.Join("; ", model.ValidationResult.Errors.Select(e => e.ErrorMessage)));
         }
 
         public Task Delete(Guid id)
@@ -39,9 +44,12 @@ namespace Jobsity.Chat.Domain.Services.Base
             return _repository.GetByIdAsync(id);
         }
 
-        public Task<TModel> Update(TModel model)
+        public async Task<TModel> Update(TModel model)
         {
-            return _repository.Update(model);
+            if (model.IsValid())
+                return await _repository.Update(model);
+            else
+                throw new DomainExeption(string.Join("; ", model.ValidationResult.Errors.Select(e => e.ErrorMessage)));
         }
     }
 }

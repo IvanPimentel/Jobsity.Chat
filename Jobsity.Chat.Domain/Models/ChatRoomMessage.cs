@@ -1,4 +1,4 @@
-﻿using Jobsity.Chat.Domain.Class;
+﻿using FluentValidation;
 using Jobsity.Chat.Domain.Models.Base;
 using System;
 
@@ -22,22 +22,34 @@ namespace Jobsity.Chat.Domain.Models
             UserId = userId;
             ChatRoomId = chatRoomId;
             Integration = integration;
-            Valitation();
-        }
-
-        protected override void Valitation()
-        {
-            if (Content == null || Content.Length < 1 || Content.Length > 100)
-                throw new DomainExeption("Name of Chat Room must be greater than 0 characters and less than 100 characters");
-            if ((UserId == Guid.Empty || UserId == null) && !Integration)
-                throw new DomainExeption("UserId is required");
-            if (ChatRoomId == Guid.Empty)
-                throw new DomainExeption("ChatRoomId is required");
         }
 
         public bool IsStockCode()
         {
             return Content.StartsWith("/stock=");
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new ChatRoomMessageValidator().Validate(this);
+            return ValidationResult.IsValid;
+        }
+    }
+
+    public class ChatRoomMessageValidator : AbstractValidator<ChatRoomMessage>
+    {
+        public ChatRoomMessageValidator()
+        {
+            RuleFor(x => x.ChatRoomId).NotEqual(Guid.Empty)
+                .WithMessage("ChatRoomId is required");
+
+            RuleFor(x => x.UserId).NotEqual(Guid.Empty)
+                .When(x => !x.Integration)
+                .WithMessage("UserId is required");
+
+            RuleFor(x => x.Content)
+                .Length(1, 100)
+                .WithMessage("Message must be greater than 0 characters and less than 100 characters");
         }
     }
 }

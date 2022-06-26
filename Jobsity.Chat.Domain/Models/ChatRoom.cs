@@ -1,6 +1,6 @@
-﻿using Jobsity.Chat.Domain.Class;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using Jobsity.Chat.Domain.Models.Base;
-using System;
 using System.Collections.Generic;
 
 namespace Jobsity.Chat.Domain.Models
@@ -15,13 +15,22 @@ namespace Jobsity.Chat.Domain.Models
         public ChatRoom(string name)
         {
             Name = name;
-            Valitation();
         }
 
-        protected override void Valitation()
+        public override bool IsValid()
         {
-            if (Name == null || Name.Length < 3 || Name.Length > 30)
-                throw new DomainExeption("Name of Chat Room must be greater than 3 characters and less than 30 characters");
+            ValidationResult = new ChatRoomValidation().Validate(this);
+            return ValidationResult.IsValid;
+        }
+    }
+
+    public class ChatRoomValidation : AbstractValidator<ChatRoom>
+    {
+        public ChatRoomValidation()
+        {
+            RuleFor(x => x.Name)
+                .Length(3, 30)
+                .WithMessage("Name of Chat Room must be greater than 3 characters and less than 30 characters");
         }
     }
 }
