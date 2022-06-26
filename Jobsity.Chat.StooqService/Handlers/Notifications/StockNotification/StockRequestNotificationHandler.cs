@@ -27,6 +27,9 @@ namespace Jobsity.Chat.StooqService.Handlers.Notifications.StockNotification
             if (!cancellationToken.IsCancellationRequested)
             {
                 var chatMessage = JsonConvert.DeserializeObject<ChatMessageBroker>(notification.Message);
+                
+                if (!chatMessage.Message.Contains("/stock="))
+                    throw new Exception("Invalid Command");
 
                 string stockCode = chatMessage.Message.Replace("/stock=","").Trim().ToLower();
                 var url = $"https://stooq.com/q/l/?s={stockCode}&f=sd2t2ohlcv&h&e=csv";

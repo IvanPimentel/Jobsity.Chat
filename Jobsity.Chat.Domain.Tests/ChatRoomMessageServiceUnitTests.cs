@@ -101,7 +101,7 @@ namespace Jobsity.Chat.Domain.Tests
         public void ChatRoomMessage_IsStockCode_CreateValidStockCodeCommand()
         {
             // Arrange
-            var model = new ChatRoomMessage("/stock=AAPL", Guid.NewGuid(), Guid.NewGuid());
+            var model = new ChatRoomMessage("/stock=AAPL.US", Guid.NewGuid(), Guid.NewGuid());
             // Act && Assert
             model.IsValid().Should().BeTrue("The chat message in this test should be valid");
             model.IsStockCode().Should().BeTrue("The chat message in this test should be a stock code command");
@@ -112,7 +112,7 @@ namespace Jobsity.Chat.Domain.Tests
         public void ChatRoomMessage_IsStockCode_CreateInvalidStockCodeCommand()
         {
             // Arrange
-            var model = new ChatRoomMessage("/another=AAPL", Guid.NewGuid(), Guid.NewGuid());
+            var model = new ChatRoomMessage("/another=AAPL.US", Guid.NewGuid(), Guid.NewGuid());
             // Act && Assert
             model.IsValid().Should().BeTrue("The chat message in this test should be valid");
             model.IsStockCode().Should().BeFalse("The correct command should be /stock=");
