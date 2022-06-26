@@ -61,7 +61,7 @@ namespace Jobsity.Chat.StooqService.Handlers.Notifications.StockNotification
 
         private static string MakeErrorMessageResponse(StockResponseNotification notification)
         {
-            return $"Quote: {notification.Stock.Symbol} is invalid or not found";
+            return $"Quote: {notification.Stock?.Symbol} is invalid or not found";
         }
     }
 }
