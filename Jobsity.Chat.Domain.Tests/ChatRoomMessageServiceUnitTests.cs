@@ -24,7 +24,7 @@ namespace Jobsity.Chat.Domain.Tests
             var result = await Assert.ThrowsAsync<DomainExeption>(() => service.Create(model));
             // Assert
             model.IsValid().Should().BeFalse("Message content empty should be invalid");
-            result.Message.Should().Be("Message must be greater than 0 characters and less than 100 characters");
+            result.Message.Should().Be("'Content' must not be empty.; Message must be greater than 0 characters and less than 100 characters");
             mocker.GetMock<IChatRoomMessageRepository>().Verify(m => m.Create(model), Times.Never, "Message is invalid it shouldn't be able to call the repository");
         }
 

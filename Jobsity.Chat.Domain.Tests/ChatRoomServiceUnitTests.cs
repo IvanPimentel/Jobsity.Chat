@@ -23,7 +23,7 @@ namespace Jobsity.Chat.Domain.Tests
             var result = await Assert.ThrowsAsync<DomainExeption>(() => chatRoomService.Create(chatRoom));
             // Assert
             chatRoom.IsValid().Should().BeFalse("Name empty should be invalid");
-            result.Message.Should().Be("Name of Chat Room must be greater than 3 characters and less than 30 characters");
+            result.Message.Should().Be("'Name' must not be empty.; Name of Chat Room must be greater than 3 characters and less than 30 characters");
             mocker.GetMock<IChatRoomRepository>().Verify(m => m.Create(chatRoom), Times.Never, "Chat room is invalid it shouldn't be able to call the repository");
         }
 
